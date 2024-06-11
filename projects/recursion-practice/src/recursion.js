@@ -173,12 +173,35 @@ var palindrome = function(string) {
 // modulo(17,5) // 2
 // modulo(22,6) // 4
 var modulo = function(x, y) {
+ 
+  //if x < y and positive condition check
+  if(x < y && x >= 0){
+    return x;
+  }
+  //if x is negative
+  if(x < 0){
+    //returns invoking modulo fliping neg to pos and decrementing x
+    return -modulo(-x, y);
+
+  }
+  //default if x is positive, returns modulo invokation of decrementing y from x
+  return modulo(x-y, y);
 };
 
 // 12. Write a function that multiplies two numbers without using the * operator  or
 // JavaScript's Math object.
 // ATTENTION DO NOT LEAVE COMMENTS IN THIS FUNCTION. The test is looking for any ('/').
-var multiply = function(x, y) {
+var multiply = function(x, y, output=0) {
+  
+  if(y === 0){
+    return output;
+  }
+  if(y > 0){
+    return multiply(x, y-1, output + x);
+  }
+  if(y < 0){
+    return multiply(x, y+1, output - x);
+  }
 };
 
 // 13. Write a function that divides two numbers without using the / operator  or
