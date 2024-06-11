@@ -116,10 +116,11 @@ var exponent = function(base, exp) {
   if(exp === 0){
     return 1;
   }
+  //if exp is negative, return 1/exponent(base, +exp)
   if(exp < 0){
     return 1 / exponent(base, -exp);
   }
-  //
+  //if exp is positive, return base num * function(base, exp - 1);
   return base * exponent(base, exp - 1);
 
 };
