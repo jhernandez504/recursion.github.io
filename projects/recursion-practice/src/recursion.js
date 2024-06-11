@@ -72,35 +72,40 @@ var isEven = function(n) {
 // sumBelow(10); // 45
 // sumBelow(7); // 21
 var sumBelow = function(n, sum = 0) {
-  //base case if n is an array
-  if(Array.isArray(n)){
-    if(n.length === 0){
-      return sum;
-    }
-    //recursion case
-    let first = n[0];
-    let rest = n.slice(1);
-    if(first < 0){
-      sum += -n[0];
-      return sumBelow(rest, sum + sumBelow(first));
-    }
-  
+  // Base case: if n is 0, return the accumulated sum
+  if (n === 0) {
+    return sum;
   }
-    
-  else {
-    //base case if n === 0
-      if(n === 0){
-        return sum;
-      } 
-      //recursion case
-      return sumBelow(n - 1, sum + (n - 1));
-  }   
+  if(n < 0){
+
+    return sumBelow(n+1, sum + (n+1));
+  }
+  if(n > 0){
+  // Recursive case: add (n-1) to sum and call sumBelow with (n-1)
+  return sumBelow(n - 1, sum + (n-1));
+  }
 };
+
 
 // 6. Get the integers in range (x, y).
 // Example:  range(2, 9);  // [3, 4, 5, 6, 7, 8]
-var range = function(x, y) {
+var range = function(x, y, output=[]) {
+  //base
+  if(x === y - 1 || x === y + 1){
+    return output;
+  }
+  if(x < y){
+    output.push(x+1);
+  }
+  if(x > y){
+    output.push(x-1);
+    return range(x-1, y, output);
+  }
+  //recursion
+  return range(x+1, y, output);
+
 };
+console.log(range(9, 2));
 
 // 7. Compute the exponent of a number.
 // The exponent of a number says how many times the base number is used as a factor.
@@ -108,6 +113,15 @@ var range = function(x, y) {
 // Example:  exponent(4,3);  // 64
 // https://www.khanacademy.org/computing/computer-science/algorithms/recursive-algorithms/a/computing-powers-of-a-number
 var exponent = function(base, exp) {
+  if(exp === 0){
+    return 1;
+  }
+  if(exp < 0){
+    return 1 / exponent(base, -exp);
+  }
+  //
+  return base * exponent(base, exp - 1);
+
 };
 
 // 8. Determine if a number is a power of two.
