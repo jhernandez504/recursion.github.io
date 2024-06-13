@@ -451,8 +451,22 @@ var minimizeZeroes = function(array, output=[]) {
 // their original sign.  The first number in the index always needs to be positive.
 // alternateSign([2,7,8,3,1,4]) // [2,-7,8,-3,1,-4]
 // alternateSign([-2,-7,8,3,-1,4]) // [2,-7,8,-3,1,-4]
-var alternateSign = function(array) {
+var alternateSign = function(array, index=0, output=[]) {
+  if (index >= array.length) {
+    return output;
+  }
+  // find out the sign based on the index
+  const isEvenIndex = index % 2 === 0;
+  const num = Math.abs(array[index]);
+  const signedNum = isEvenIndex ? num : -num;
+
+  // push the signed number to the output
+  output.push(signedNum);
+
+  // Recursive call with the next index
+  return alternateSign(array, index + 1, output);
 };
+
 
 // 35. Given a string, return a string with digits converted to their word equivalent.
 // Assume all numbers are single digits (less than 10).
