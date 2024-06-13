@@ -472,6 +472,22 @@ var alternateSign = function(array, index=0, output=[]) {
 // Assume all numbers are single digits (less than 10).
 // numToText("I have 5 dogs and 6 ponies"); // "I have five dogs and six ponies"
 var numToText = function(str) {
+  let intWords = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'];
+  // Base 
+  // if the string is empty, return the empty string
+  if (str.length === 0) {
+    return '';
+  }
+  // set first character of the string to variable char
+  let char = str[0];
+  // if the character is a digit, convert it to word form
+  if (char >= '0' && char <= '9') {
+    char = intWords[char];
+  }
+
+  // recursion
+  //invoke call with the rest of the string and concatenate the result
+  return char + numToText(str.slice(1));
 };
 
 // *** EXTRA CREDIT ***
