@@ -245,30 +245,61 @@ var createArray = function(str, output=[]){
   if(str.length === 0){
     return output;
   }
+  //push first index to output array
   output.push(str[0]);
+  //recursion
+  //return string sliced at 1 index and invoke recursion
   return createArray(str.slice(1), output);
 
 };
 
 // 17. Reverse the order of an array
-var reverseArr = function (array) {
+var reverseArr = function (array, output=[]) {
+  if(array.length === 0){
+    return output;
+  }
+  output.unshift(array[0]);
+
+  return reverseArr(array.slice(1), output);
 };
 
 // 18. Create a new array with a given value and length.
 // buildList(0,5) // [0,0,0,0,0]
 // buildList(7,3) // [7,7,7]
-var buildList = function(value, length) {
+var buildList = function(value, length, output=[]) {
+  if(length === 0 || undefined){
+    return output;
+  }
+  
+  output.push(value);
+
+  return buildList(value, length - 1, output);
+
 };
 
 // 19. Count the occurence of a value inside a list.
 // countOccurrence([2,7,4,4,1,4], 4) // 3
 // countOccurrence([2,'banana',4,4,1,'banana'], 'banana') // 2
-var countOccurrence = function(array, value) {
+var countOccurrence = function(array, value, output=0) {
+  if(array.length === 0){
+    return output;
+  }
+  if(array[0] === value){
+    output++;
+  }
+  
+  return countOccurrence(array.slice(1), value, output);
+
 };
 
 // 20. Write a recursive version of map.
 // rMap([1,2,3], timesTwo); // [2,4,6]
-var rMap = function(array, callback) {
+var rMap = function(array, callback, output=[]) {
+  if(array.length === 0){
+    return output;
+  }
+  output.push(callback(array[0]));
+  return rMap(array.slice(1), callback, output);
 };
 
 // 21. Write a function that counts the number of times a key occurs in an object.
@@ -304,6 +335,18 @@ var fibonacci = function(n) {
 // nthFibo(7); // 13
 // nthFibo(3); // 2
 var nthFibo = function(n) {
+  if(n === 0){
+    return 0;
+  }
+  else if(n === 1){
+    return 1;
+  }
+  else if( n < 0){
+    return null;
+  }
+  else{
+    return nthFibo(n - 1) + nthFibo(n - 2);
+  }
 };
 
 // 26. Given an array of words, return a new array containing each word capitalized.
