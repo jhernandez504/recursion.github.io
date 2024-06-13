@@ -364,8 +364,15 @@ var capitalizeWords = function(input, output=[]) {
 
 // 27. Given an array of strings, capitalize the first letter of each index.
 // capitalizeFirst(['car', 'poop', 'banana']); // ['Car', 'Poop', 'Banana']
-var capitalizeFirst = function(array) {
+var capitalizeFirst = function(array, output=[]) {
+  if(array.length === 0){
+    return output;
+  }
+  output.push(array[0].charAt(0).toUpperCase() + array[0].slice(1).toLowerCase());
+
+  return capitalizeFirst(array.slice(1), output);
 };
+
 
 // 28. Return the sum of all even numbers in an object containing nested objects.
 // var obj1 = {
@@ -386,7 +393,22 @@ var flatten = function(arrays) {
 
 // 30. Given a string, return an object containing tallies of each letter.
 // letterTally('potato'); // {'p':1, 'o':2, 't':2, 'a':1}
-var letterTally = function(str, obj) {
+var letterTally = function(str, output={}) {
+  if(str.length === 0){
+    return output;
+  }
+  //assigns letter at index 0 to variable letter
+  let letter = str[0];
+  if(output[letter]){
+    //increments count of object output key letter's value count
+    output[letter]++;
+  }
+  else{
+    //if there is no key for letter, creates letter key and assigns it value of 1.
+    output[letter] = 1;
+  }
+  //returns invokation of letterTally that has arguments sliced string from 1 index and output
+  return letterTally(str.slice(1), output);
 };
 
 // 31. Eliminate consecutive duplicates in a list.  If the list contains repeated
